@@ -1,0 +1,32 @@
+{
+  "name": "curator",
+  "version": "1.0.0",
+  "description": "playing around with curator.io API",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "run": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/workingmatt/curator.git"
+  },
+  "keywords": [
+    "curator.io",
+    "API",
+    "experiment"
+  ],
+  "author": "Matt Mapleston",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/workingmatt/curator/issues"
+  },
+  "homepage": "https://github.com/workingmatt/curator",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1"
+  }
+}
