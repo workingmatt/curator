@@ -1,7 +1,7 @@
 const express = require('express');
 const app =  express();
 const bodyParser = require('body-parser');
-//const helper = require('./libs/helpers.js');
+const helper = require('./libs/helpers.js');
 
 //scraper module gets images from instagram user account
 //require('./libs/scraper')(process.argv[2]);
@@ -18,7 +18,7 @@ app.use(express.static('./public/'));
 
 //routes
 app.get('/', (req,res) => {
-//	helper.sendFileList(res);
+	helper.getPosts(res);
 	res.render('../index.html');
 })
 
