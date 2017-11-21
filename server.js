@@ -23,7 +23,6 @@ app.get('/', (req,res) => {
 })
 
 app.post('/feed', (req,res) => {
-	console.log("in app.post /feed");
 	helper.sendFeed(res);
 })
 
