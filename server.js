@@ -18,13 +18,13 @@ app.use(express.static('./public/'));
 
 //routes
 app.get('/', (req,res) => {
-	helper.getPosts(res);
+	//helper.getPosts(res);
 	res.render('../index.html');
 })
 
-//app.post('/files', (req,res) => {
-//	console.log("in app.post");
-//	helper.sendFileList(res);
-//})
+app.post('/feed', (req,res) => {
+	console.log("in app.post /feed");
+	helper.sendFeed(res);
+})
 
 app.listen(3000)

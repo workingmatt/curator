@@ -3,6 +3,19 @@ var fs = require('fs');
 
 module.exports = {
 
+	sendFeed: function(res){
+		//res.send("hi from sendFeed");
+		fs.readFile('./public/feed.json', 'utf-8', function(err,json){
+			if(err){
+				console.log("got an err in readfile");
+				console.log(err);
+				return;
+			}
+			var obj = JSON.parse(json);
+			res.send(obj);
+		});
+	},
+
 	getPosts: function(res){
 		console.log("***********");
 		var path = "./public";
