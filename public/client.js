@@ -1,6 +1,4 @@
 //client.js
-console.log("hi from curator client.js");
-
 var imageArray = new Array();
 var imageWidth = 150;
 var j = 0;
@@ -32,7 +30,7 @@ $(function () {
 				if (data.posts[i].has_image==1){
 					imageArray[j]=new Image();
 					imageArray[j].width = imageWidth;
-					imageArray[j].alt = data.posts[i].has_media;//data.posts[i].text;
+					imageArray[j].alt = data.posts[i].text;
 					imageArray[j].name = data.posts[i].user_screen_name;
 					var date = new Date(data.posts[i].source_created_at);
 					imageArray[j].date = date.toLocaleDateString("en-GB");
@@ -42,26 +40,18 @@ $(function () {
 				}
 			}
 
-/*			for (j=0;j<imageArray.length;j++){
-				//console.log("J"+j);
-				$('<div id="grid-item" data-i="'+j+'">')
-					.append(imageArray[j])
-					.append("<p>"+iconImageArray[0].title+" : "+imageArray[j].name+" : "+imageArray[j].date+"</p>")
-					.appendTo('#thegrid');
-			}
-*/
 			for (j=0;j<imageArray.length;j++){
 				if (imageArray[j].network_name=="Facebook"){
 					$('<div id="grid-item" data-i="'+j+'">')		
 						.append(imageArray[j])
 						.append("<p>"+iconImageArray[0].title+" : "+imageArray[j].name+" : "+imageArray[j].date+"</p>")
 						.appendTo('#thegrid');
-				} else if (imageArray[j].network_name=="'Instagram'") {
+				} else if (imageArray[j].network_name=="Instagram") {
 					$('<div id="grid-item" data-i="'+j+'">')
 						.append(imageArray[j])
 						.append("<p>"+iconImageArray[1].title+" : "+imageArray[j].name+" : "+imageArray[j].date+"</p>")
 						.appendTo('#thegrid');
-				} else {
+				} else if (imageArray[j].network_name=="Twitter") {
 					$('<div id="grid-item" data-i="'+j+'">')
 						.append(imageArray[j])
 						.append("<p>"+iconImageArray[2].title+" : "+imageArray[j].name+" : "+imageArray[j].date+"</p>")
@@ -72,8 +62,8 @@ $(function () {
 
 			$('#thegrid').imagesLoaded(function() {
 				$('#thegrid').masonry({
-					columnWidth: (imageWidth+0),//300,
-					gutterWidth: 10,
+					columnWidth: (imageWidth+20),
+					gutterWidth: 0.5,
 					itemSelector: '#grid-item',
 					isAnimated: true,
 					animationOptions: {
