@@ -1,5 +1,9 @@
 //helpers.js
+var feed;
 var fs = require('fs');
+const https = require('https');
+var request = require('request');
+var postArray = new Array();
 
 module.exports = {
 
@@ -17,22 +21,89 @@ module.exports = {
 	},
 
 	getPosts: function(res){
-		console.log("***********");
-		var path = "./public";
-		fs.readFile('./public/feed.json', 'utf-8', function(err,json){
-			if(err){
-				console.log("got an err in readfile");
-				console.log(err);
-				return;
-			}
-			var obj = JSON.parse(json);
-			console.log("json1: "+obj.success)
-			console.log("json2: "+obj.sources[0].name)
-			for (var i=0;i<obj.sources.length; i++){
-				console.log("Checking the following network: "+obj.sources[i].name);
-			}
-			console.log("json3: "+obj.posts.length+" posts available");
+		postArray = [];
+		var that = this;
+		return new Promise(function(resolve,reject){
+			console.log("getPosts ***********");
+			https.get('https://api.curator.io/v1/feeds/57C5020C-83C8-4F7D-B227-B8EEEC4A/posts/?api_key=API_KEY', (resp)=>{
+				let data = '';
+				resp.on('data',(chunk)=>{
+					data += chunk;
+				});
 
+				resp.on('end',()=>{
+					console.log("got data from curator.io");
+					feed = JSON.parse(data);
+					that.getImages()
+						.then(function(v){
+							resolve(res.send(v));
+						})
+						.catch(function(v){
+							console.log("reject");
+						});
+				});
+
+				resp.on('error', (err)=>{
+					console.log("https.get error: ");
+					console.log(err);
+				});	
+			});
+		});
+	},
+
+	getImages: function() {
+		return new Promise(function(resolve, reject){
+			console.log("postCount: "+feed.postCount);
+			var promises = new Array;
+			for (var i=0;i<feed.postCount;i++){
+				if(feed.posts[i].has_image==1){
+					promises.push(getImageLoop(feed, i)); //add all instances of getImageLoop to the pile of promises
+					Promise.all(promises) //once all of the pile of promises are done go back to getPosts
+						.then(function(){
+							resolve(postArray);
+						})
+						.catch(function(){
+							console.log("error in getImages");
+						});
+				}
+			}//end of for loop
+		});
+	}
+}
+
+function getImageLoop(feed, i) {
+	return new Promise(function(resolve,reject){
+		let fileStream = fs.createWriteStream("./public/images/"+i);
+		let objPost = new Object();
+
+		objPost.image = i;
+		objPost.name = feed.posts[i].user_screen_name;
+		objPost.text = feed.posts[i].text;
+		objPost.network_name = feed.posts[i].network_name;
+		var date = new Date(feed.posts[i].source_created_at)
+		objPost.date = date.toLocaleDateString("en-GB");
+		postArray.push(objPost);
+
+		request(feed.posts[i].image, function(err, response, body){
+			//console.log(response.headers['content-type']);
+			if(err){
+				console.log("Err in getImages: ");
+				console.log(err);
+			}
+			if(response.headers['content-type'].includes('text/html')){
+				console.log("html detected");
+			}
+			objPost.content_type = response.headers['content-type'];
+		}).pipe(fileStream);
+
+		fileStream.on('close', ()=>{
+			resolve();
+		});
+		fileStream.on('error', (e)=>{
+			reject(e);
+		});
+	});
+}
 /*			for (var i=0;i<obj.posts.length;i++){
 				console.log("--------START POST-----------");
 			//console.log("id- "+obj.posts[0].id);
@@ -82,27 +153,4 @@ module.exports = {
 			//console.log("last_modified- "+obj.posts[0].last_modified);
 			}
 */
-console.log(obj.posts);			
-			//res.send(obj);
-			//return;
 
-		});
-		//console.log("Arguement: "+process.argv[2]);
-		//var path = "./public/turnercontemporary";
-		//fs.readdir(path,'utf8',function(err,files){
-		//	if(err){
-		//		console.log("getFileList error: ");
-		//		console.log(err);
-		//		console.log("*** End of Error");
-		//		return err;
-		//	}
-		//	console.log('Sending file list');
-		//	res.send(files);
-		//	return;
-		//})
-	}
-
-
-
-
-}
