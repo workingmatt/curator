@@ -26,12 +26,11 @@ $(function () {//Runs immediately
 		success: function (data){
 			//Add posts to index.html as #grid-items
 			for (j=0;j<data.length;j++){
-				if(data[j].content_type != undefined){
+				if(data[j].content_type == undefined){
 					data[j].content_type = "none";
 				}
 				
 			console.log("content_type: "+data[j].content_type);
-			console.log("text"+data[j].text);
 				if(!data[j].content_type.includes('html')){
 					if (data[j].network_name=="Facebook"){
 						$('<div id="grid-item" data-i="'+j+'">')		
@@ -63,7 +62,7 @@ $(function () {//Runs immediately
 					animationOptions: {
 						duration: 500,
 						easing: 'linear',
-						queue: false
+						queue: true
 					}
 				});
 

@@ -62,8 +62,9 @@ module.exports = {
 						.then(function(){
 							resolve(postArray);
 						})
-						.catch(function(){
+						.catch(function(err){
 							console.log("error in getImages");
+							console.log(err);
 						});
 				}
 			}//end of for loop
