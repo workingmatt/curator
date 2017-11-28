@@ -25,7 +25,7 @@ module.exports = {
 		var that = this;
 		return new Promise(function(resolve,reject){
 			console.log("getPosts ***********");
-			https.get('https://api.curator.io/v1/feeds/57C5020C-83C8-4F7D-B227-B8EEEC4A/posts/?api_key=API_KEY', (resp)=>{
+			https.get('https://api.curator.io/v1/feeds/57C5020C-83C8-4F7D-B227-B8EEEC4A/posts/?api_key=a750692d-1236-47c4-b108-69607e0e06af', (resp)=>{
 				let data = '';
 				resp.on('data',(chunk)=>{
 					data += chunk;
@@ -58,16 +58,17 @@ module.exports = {
 			for (var i=0;i<feed.postCount;i++){
 				if(feed.posts[i].has_image==1){
 					promises.push(getImageLoop(feed, i)); //add all instances of getImageLoop to the pile of promises
-					Promise.all(promises) //once all of the pile of promises are done go back to getPosts
-						.then(function(){
-							resolve(postArray);
-						})
-						.catch(function(err){
-							console.log("error in getImages");
-							console.log(err);
-						});
 				}
 			}//end of for loop
+			Promise.all(promises) //once all of the pile of promises are done go back to getPosts
+				.then(function(){
+					console.log("Finished getting all images");
+					resolve(postArray);
+				})
+				.catch(function(err){
+					console.log("error in getImages");
+					console.log(err);
+				});
 		});
 	}
 }

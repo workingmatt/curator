@@ -25,8 +25,7 @@ app.post('/feed', (req,res) => {
     //	if(online){
 			helper.getPosts(res)
 				.then(function(v){
-				console.log("server getposts then function.");
-				console.log(v.body);
+				console.log("server.js done");
 			});
     //	} else {
     //		console.log("Waiting for internet connection");

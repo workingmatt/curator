@@ -29,7 +29,7 @@ $(function () {//Runs immediately
 				if(data[j].content_type == undefined){
 					data[j].content_type = "none";
 				}
-				
+
 			console.log("content_type: "+data[j].content_type);
 				if(!data[j].content_type.includes('html')){
 					if (data[j].network_name=="Facebook"){
