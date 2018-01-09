@@ -1,5 +1,5 @@
 //client.js
-var imageWidth = 150;
+var imageWidth = 380;
 var j = 0;
 
 var iconImageArray = new Array();
@@ -30,20 +30,20 @@ $(function () {//Runs immediately
 					data[j].content_type = "none";
 				}
 
-			console.log("content_type: "+data[j].content_type);
+				console.log("content_type: "+data[j].content_type);
 				if(!data[j].content_type.includes('html')){
 					if (data[j].network_name=="Facebook"){
-						$('<div id="grid-item" data-i="'+j+'">')		
+						$('<div class="hidden" id="grid-item" data-i="'+j+'">')		
 							.append('<img src="./images/'+data[j].image+'" width="'+imageWidth+'" alt="'+data[j].image+'"></>')
 							.append("<p>"+iconImageArray[0].title+" : "+data[j].name+" : "+data[j].date+"</p>")
 							.appendTo('#thegrid');
 					} else if (data[j].network_name=="Instagram") {
-						$('<div id="grid-item" data-i="'+j+'">')
+						$('<div class="hidden" id="grid-item" data-i="'+j+'">')
 							.append('<img src="./images/'+data[j].image+'" width="'+imageWidth+'" alt="'+data[j].image+'"></>')
 							.append("<p>"+iconImageArray[1].title+" : "+data[j].name+" : "+data[j].date+"</p>")
 							.appendTo('#thegrid');
 					} else if (data[j].network_name=="Twitter") {
-						$('<div id="grid-item" data-i="'+j+'">')
+						$('<div class="hidden" id="grid-item" data-i="'+j+'">')
 							.append('<img src="./images/'+data[j].image+'" width="'+imageWidth+'" alt="'+data[j].image+'"></>')
 							.append("<p>"+iconImageArray[2].title+" : "+data[j].name+" : "+data[j].date+"</p>")
 							.appendTo('#thegrid');
@@ -51,22 +51,32 @@ $(function () {//Runs immediately
 				}
 				
 			}
-			console.log("2nd j: "+j);
 			//Configure and layout Masonry grid
 			$('#thegrid').imagesLoaded(function() {
-				$('#thegrid').masonry({
-					columnWidth: (imageWidth+20), //Separation between columns, see css in index.html for image format
-					gutterWidth: 0,
-					itemSelector: '#grid-item',
-					isAnimated: true,
-					animationOptions: {
-						duration: 500,
-						easing: 'linear',
-						queue: true
-					}
-				});
+				console.log("imagesLoaded "+j);
+				var index = 1;
+				var maxIndex = j-1;
 
-				$('#thegrid').masonry('layout');
+				setInterval(function(){
+					console.log("In setInterval");
+					$("#thegrid").children().each(function(){
+						console.log($(this).attr('data-i'));
+						if ($(this).attr('data-i')<index){
+							$(this).hide();	
+						}
+						if ($(this).attr('data-i')>=index && $(this).attr('data-i')<index+8){
+							$(this).show();
+						}
+					});
+					if (index==maxIndex){
+						index = 1;
+					} else {
+						index++;	
+					}
+
+				},2000);
+
+				console.log("found no child");
 			});
 			
 		},
