@@ -40,12 +40,15 @@ module.exports = {
 						})
 						.catch(function(v){
 							console.log("reject");
+							console.log(v);
+							console.log("end reject message");
 						});
 				});
 
 				resp.on('error', (err)=>{
 					console.log("https.get error: ");
 					console.log(err);
+					reject(err);
 				});	
 			});
 		});
@@ -53,10 +56,14 @@ module.exports = {
 
 	getImages: function() {
 		return new Promise(function(resolve, reject){
+			var k=0;
 			console.log("postCount: "+feed.postCount);
 			var promises = new Array;
 			for (var i=0;i<feed.postCount;i++){
-				if(feed.posts[i].has_image==1){
+				
+				if(feed.posts[i]!=undefined && feed.posts[i].has_image==1){
+					console.log("Has image? "+feed.posts[i].has_image+"- index "+k);
+					k=k+1;
 					promises.push(getImageLoop(feed, i)); //add all instances of getImageLoop to the pile of promises
 				}
 			}//end of for loop

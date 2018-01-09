@@ -30,7 +30,6 @@ $(function () {//Runs immediately
 					data[j].content_type = "none";
 				}
 
-				console.log("content_type: "+data[j].content_type);
 				if(!data[j].content_type.includes('html')){
 					if (data[j].network_name=="Facebook"){
 						$('<div class="hidden" id="grid-item" data-i="'+j+'">')		
@@ -53,30 +52,25 @@ $(function () {//Runs immediately
 			}
 			//Configure and layout Masonry grid
 			$('#thegrid').imagesLoaded(function() {
-				console.log("imagesLoaded "+j);
+				console.log("Loaded "+j+" images. Beginning animation.");
 				var index = 1;
 				var maxIndex = j-1;
 
 				setInterval(function(){
-					console.log("In setInterval");
 					$("#thegrid").children().each(function(){
-						console.log($(this).attr('data-i'));
 						if ($(this).attr('data-i')<index){
-							$(this).hide();	
+							$(this).hide(1000);	
 						}
 						if ($(this).attr('data-i')>=index && $(this).attr('data-i')<index+8){
-							$(this).show();
+							$(this).show(1200);
 						}
 					});
-					if (index==maxIndex){
+					if (index>maxIndex){
 						index = 1;
 					} else {
 						index++;	
 					}
-
-				},2000);
-
-				console.log("found no child");
+				},10000);
 			});
 			
 		},
