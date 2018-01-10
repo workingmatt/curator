@@ -56,6 +56,16 @@ $(function () {//Runs immediately
 				var index = 1;
 				var maxIndex = j-1;
 
+				$("#thegrid").children().each(function(){
+					if ($(this).attr('data-i')<index){
+						$(this).hide(1000);	
+					}
+					if ($(this).attr('data-i')>=index && $(this).attr('data-i')<index+8){
+						$(this).show();
+					}
+				});
+				index++;
+
 				setInterval(function(){
 					$("#thegrid").children().each(function(){
 						if ($(this).attr('data-i')<index){
