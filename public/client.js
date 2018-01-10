@@ -22,7 +22,7 @@ iconImageArray[2].title = "TW";
 $(function () {//Runs immediately
 	$.ajax({
 		type: 'POST', //Production - Change this to GET
-		url: 'http://localhost:3000/feed', //Production - change this to https://api.curator.io/v1/feeds/FEED-ID/posts/?api_key=API_KEY
+		url: 'http://systemsengineering.co.uk/feed', //Production - change this to https://api.curator.io/v1/feeds/FEED-ID/posts/?api_key=API_KEY
 		success: function (data){
 			//Add posts to index.html as #grid-items
 			for (j=0;j<data.length;j++){
