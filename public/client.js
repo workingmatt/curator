@@ -5,7 +5,7 @@ var j = 0;
 
 var iconImageArray = new Array();
 iconImageArray[0]=new Image();
-iconImageArray[0].width=46;
+iconImageArray[0].width=36;
 iconImageArray[0].alt="Facebook Icon";
 iconImageArray[0].src = "facebook.png";
 iconImageArray[0].title = "FB";
@@ -56,19 +56,16 @@ $(function () {//Runs immediately
 					if (data[j].network_name=="Facebook"){
 						$('<div class="hidden" id="grid-item" data-i="'+j+'">')		
 							.append('<img src="./images/'+data[j].image+imageSizer+'" alt="'+data[j].image+'"></>')
-							//.append("<p>"+iconImageArray[0].title+" : "+data[j].name+" : "+data[j].date+"</p>")
 							.append('<p><img src="'+iconImageArray[0].src+'" alt="FB" width="'+iconImageArray[0].width+'">&nbsp&nbsp'+data[j].name+' : '+data[j].date+'</p>')
 							.appendTo('#thegrid');
 					} else if (data[j].network_name=="Instagram") {
 						$('<div class="hidden" id="grid-item" data-i="'+j+'">')
 							.append('<img src="./images/'+data[j].image+imageSizer+'" alt="'+data[j].image+'"></>')
-							//.append("<p>"+iconImageArray[1].title+" : "+data[j].name+" : "+data[j].date+"</p>")
 							.append('<p><img src="'+iconImageArray[1].src+'" alt="FB" width="'+iconImageArray[1].width+'">&nbsp&nbsp'+data[j].name+" : "+data[j].date+"</p>")
 							.appendTo('#thegrid');
 					} else if (data[j].network_name=="Twitter") {
 						$('<div class="hidden" id="grid-item" data-i="'+j+'">')
 							.append('<img src="./images/'+data[j].image+imageSizer+'" alt="'+data[j].image+'"></>')
-							//.append("<p>"+iconImageArray[2].title+" : "+data[j].name+" : "+data[j].date+"</p>")
 							.append('<p><img src="'+iconImageArray[2].src+'" alt="FB" width="'+iconImageArray[2].width+'">&nbsp&nbsp'+data[j].name+" : "+data[j].date+"</p>")
 							.appendTo('#thegrid');
 					}
