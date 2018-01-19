@@ -1,5 +1,6 @@
 //client.js
-var imageWidth = 380;
+var maxImageWidth = 380;
+var maxImageHeight = 380;
 var j = 0;
 
 var iconImageArray = new Array();
@@ -22,7 +23,7 @@ iconImageArray[2].title = "TW";
 $(function () {//Runs immediately
 	$.ajax({
 		type: 'POST', //Production - Change this to GET
-		url: 'http://localhost:3000/feed', //Production - change this to https://api.curator.io/v1/feeds/FEED-ID/posts/?api_key=API_KEY
+		url: 'http://localhost:3000/feed', //Production - change this to http://systemsengineering.co.uk/feed
 		success: function (data){
 			//Add posts to index.html as #grid-items
 			for (j=0;j<data.length;j++){
@@ -30,20 +31,40 @@ $(function () {//Runs immediately
 					data[j].content_type = "none";
 				}
 
+				console.log("**************************");
+				console.log("has image: "+data[j].has_image);
+				console.log("image name: "+data[j].image);
+				console.log("img width: "+data[j].image_width);
+				console.log("img height: "+data[j].image_height);
+				console.log("image large: "+data[j].image_large);
+				console.log("image large width: "+data[j].image_large_width);
+				console.log("image large height: "+data[j].image_large_height);
+
+				//if width greater than height make set width in <img> otherwise
+				//if height greater than width set height in <img>.
+				var imageSizer;
+				if(data[j].image_width>=maxImageWidth){
+					imageSizer = '" width="'+maxImageWidth;
+				}
+				if(data[j].image_height>=maxImageHeight){
+					imageSizer = '" height="'+maxImageHeight;
+				}
+
+
 				if(!data[j].content_type.includes('html')){
 					if (data[j].network_name=="Facebook"){
 						$('<div class="hidden" id="grid-item" data-i="'+j+'">')		
-							.append('<img src="./images/'+data[j].image+'" width="'+imageWidth+'" alt="'+data[j].image+'"></>')
+							.append('<img src="./images/'+data[j].image+imageSizer+'" alt="'+data[j].image+'"></>')
 							.append("<p>"+iconImageArray[0].title+" : "+data[j].name+" : "+data[j].date+"</p>")
 							.appendTo('#thegrid');
 					} else if (data[j].network_name=="Instagram") {
 						$('<div class="hidden" id="grid-item" data-i="'+j+'">')
-							.append('<img src="./images/'+data[j].image+'" width="'+imageWidth+'" alt="'+data[j].image+'"></>')
+							.append('<img src="./images/'+data[j].image+imageSizer+'" alt="'+data[j].image+'"></>')
 							.append("<p>"+iconImageArray[1].title+" : "+data[j].name+" : "+data[j].date+"</p>")
 							.appendTo('#thegrid');
 					} else if (data[j].network_name=="Twitter") {
 						$('<div class="hidden" id="grid-item" data-i="'+j+'">')
-							.append('<img src="./images/'+data[j].image+'" width="'+imageWidth+'" alt="'+data[j].image+'"></>')
+							.append('<img src="./images/'+data[j].image+imageSizer+'" alt="'+data[j].image+'"></>')
 							.append("<p>"+iconImageArray[2].title+" : "+data[j].name+" : "+data[j].date+"</p>")
 							.appendTo('#thegrid');
 					}
@@ -57,6 +78,7 @@ $(function () {//Runs immediately
 				var maxIndex = j-1;
 
 				$("#thegrid").children().each(function(){
+
 					if ($(this).attr('data-i')<index){
 						$(this).hide(1000);	
 					}
