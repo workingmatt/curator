@@ -31,17 +31,6 @@ $(function () {//Runs immediately
 					data[j].content_type = "none";
 				}
 
-				console.log("**************************");
-				console.log("has image: "+data[j].has_image);
-				console.log("image name: "+data[j].image);
-				console.log("img width: "+data[j].image_width);
-				console.log("img height: "+data[j].image_height);
-				console.log("image large: "+data[j].image_large);
-				console.log("image large width: "+data[j].image_large_width);
-				console.log("image large height: "+data[j].image_large_height);
-
-				//if width greater than height make set width in <img> otherwise
-				//if height greater than width set height in <img>.
 				var imageSizer;
 				if(data[j].image_width>=data[j].image_height){
 					imageSizer = '" width="'+maxImageWidth;
