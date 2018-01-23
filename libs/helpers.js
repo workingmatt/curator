@@ -98,7 +98,7 @@ function getImageLoop(feed, i) {
 		objPost.text = feed.posts[i].text;
 		objPost.network_name = feed.posts[i].network_name;
 		var date = new Date(feed.posts[i].source_created_at)
-		objPost.date = date.toLocaleDateString("en-GB");
+		objPost.date = date.toLocaleDateString("en-GB-oed");
 		
 		postArray.push(objPost);
 

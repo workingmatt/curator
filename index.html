@@ -2,15 +2,17 @@
 <head>
 	<style>
 
+	body {
+		margin: 0 0 0 0;
+	}
+
 	#thegrid {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
-		grid-template-rows: repeat(2, 1fr);
+		grid-template-rows: repeat(2, 540px);
 	}
 
 	#grid-item {
-		width: 480;
-		height: 540;
 		background: white;
 		float: left;
 		margin: 10px 10px 10px 10px;
@@ -26,16 +28,24 @@
         position:relative;
 	}
 
-	#grid-item img {
-		margin: 30px 10px -5px;
+	#grid-item > img {
+		margin: 15px;
 	}
-
-	#grid-item p {
+		
+	#grid-item > p {
 		color: #333;
 		font-size: 24px;
 		position: absolute;
 		bottom: 0;
-		width: 400px;
+		width: auto;
+	}
+
+	p {
+		margin: 0 0 10 15;
+	}
+
+	p > img {
+		margin: 0px 0px -5px;
 	}
 
 	</style>

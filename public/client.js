@@ -1,6 +1,6 @@
 //client.js
-var maxImageWidth = 440;
-var maxImageHeight = 452;
+var maxImageWidth = 420;
+var maxImageHeight = 450;
 var j = 0;
 
 var iconImageArray = new Array();
