@@ -1,21 +1,21 @@
 //client.js
-var maxImageWidth = 400;
-var maxImageHeight = 400;
+var maxImageWidth = 440;
+var maxImageHeight = 452;
 var j = 0;
 
 var iconImageArray = new Array();
 iconImageArray[0]=new Image();
-iconImageArray[0].width=36;
+iconImageArray[0].width=24;
 iconImageArray[0].alt="Facebook Icon";
 iconImageArray[0].src = "facebook.png";
 iconImageArray[0].title = "FB";
 iconImageArray[1]=new Image();
-iconImageArray[1].width=36;
+iconImageArray[1].width=24;
 iconImageArray[1].alt="Instagram Icon";
 iconImageArray[1].src = "./instagram.png";
 iconImageArray[1].title = "IG";
 iconImageArray[2]=new Image();
-iconImageArray[2].width=36;
+iconImageArray[2].width=24;
 iconImageArray[2].alt="Twitter Icon";
 iconImageArray[2].src = "./twitter.png";
 iconImageArray[2].title = "TW";
@@ -43,17 +43,17 @@ $(function () {//Runs immediately
 
 				if(!data[j].content_type.includes('html')){
 					if (data[j].network_name=="Facebook"){
-						$('<div class="hidden" id="grid-item" data-i="'+j+'">')		
+						$('<div id="grid-item" data-i="'+j+'" style="display: none;">')		
 							.append('<img src="./images/'+data[j].image+imageSizer+'" alt="'+data[j].image+'"></>')
 							.append('<p><img src="'+iconImageArray[0].src+'" alt="FB" width="'+iconImageArray[0].width+'">&nbsp&nbsp'+data[j].name+' : '+data[j].date+'</p>')
 							.appendTo('#thegrid');
 					} else if (data[j].network_name=="Instagram") {
-						$('<div class="hidden" id="grid-item" data-i="'+j+'">')
+						$('<div id="grid-item" data-i="'+j+'" style="display: none;">')
 							.append('<img src="./images/'+data[j].image+imageSizer+'" alt="'+data[j].image+'"></>')
 							.append('<p><img src="'+iconImageArray[1].src+'" alt="FB" width="'+iconImageArray[1].width+'">&nbsp&nbsp'+data[j].name+" : "+data[j].date+"</p>")
 							.appendTo('#thegrid');
 					} else if (data[j].network_name=="Twitter") {
-						$('<div class="hidden" id="grid-item" data-i="'+j+'">')
+						$('<div id="grid-item" data-i="'+j+'" style="display: none;">')
 							.append('<img src="./images/'+data[j].image+imageSizer+'" alt="'+data[j].image+'"></>')
 							.append('<p><img src="'+iconImageArray[2].src+'" alt="FB" width="'+iconImageArray[2].width+'">&nbsp&nbsp'+data[j].name+" : "+data[j].date+"</p>")
 							.appendTo('#thegrid');
