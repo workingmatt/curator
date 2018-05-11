@@ -35,5 +35,5 @@ app.post('/feed', (req,res) => {
 	
 	//helper.sendFeed(res);
 })
-
+console.log("Server listening on port 3000.");
 app.listen(3000)

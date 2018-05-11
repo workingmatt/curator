@@ -23,8 +23,8 @@ iconImageArray[2].title = "TW";
 
 $(function () {//Runs immediately
 	$.ajax({
-		type: 'POST', //Production - Change this to GET
-		url: 'http://localhost:3000/feed', //Production - change this to http://systemsengineering.co.uk/feed
+		type: 'POST',
+		url: 'http://localhost:3000/feed', //Production - change this to url: 'http://systemsengineering.co.uk/feed',
 		success: function (data){
 			//Add posts to index.html as #grid-items
 			for (j=0;j<data.length;j++){
