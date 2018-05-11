@@ -6,17 +6,17 @@ var j = 0;
 
 var iconImageArray = new Array();
 iconImageArray[0]=new Image();
-iconImageArray[0].width=24;
+iconImageArray[0].width=48;
 iconImageArray[0].alt="Facebook Icon";
 iconImageArray[0].src = "facebook.png";
 iconImageArray[0].title = "FB";
 iconImageArray[1]=new Image();
-iconImageArray[1].width=24;
+iconImageArray[1].width=48;
 iconImageArray[1].alt="Instagram Icon";
 iconImageArray[1].src = "./instagram.png";
 iconImageArray[1].title = "IG";
 iconImageArray[2]=new Image();
-iconImageArray[2].width=24;
+iconImageArray[2].width=48;
 iconImageArray[2].alt="Twitter Icon";
 iconImageArray[2].src = "./twitter.png";
 iconImageArray[2].title = "TW";
@@ -24,7 +24,7 @@ iconImageArray[2].title = "TW";
 $(function () {//Runs immediately
 	$.ajax({
 		type: 'POST',
-		url: 'http://systemsengineering.co.uk/feed',
+		url: 'http://localhost:3000/feed',//For production use 'http://systemsengineering.co.uk/feed',
 		success: function (data){
 			//Add posts to index.html as #grid-items
 			for (j=0;j<data.length;j++){
