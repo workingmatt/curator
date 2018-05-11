@@ -13,10 +13,11 @@ app.use((req, res, next) => {
 	next()
 })
 app.use(express.static(__dirname+'/public/'));
+app.set('views', (__dirname));
 
 //routes
 app.get('/', (req,res) => {
-	res.render('../index.html');
+	res.render('./index.html');
 })
 
 app.post('/feed', (req,res) => {

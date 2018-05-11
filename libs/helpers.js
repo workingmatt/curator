@@ -62,7 +62,7 @@ module.exports = {
 			for (var i=0;i<feed.postCount;i++){
 				
 				if(feed.posts[i]!=undefined && feed.posts[i].has_image==1){
-					console.log("Has image? "+feed.posts[i].has_image+"- index "+k);
+			//		console.log("Has image? "+feed.posts[i].has_image+"- index "+k);
 					k=k+1;
 					promises.push(getImageLoop(feed, i)); //add all instances of getImageLoop to the pile of promises
 				}
@@ -82,7 +82,7 @@ module.exports = {
 
 function getImageLoop(feed, i) {
 	return new Promise(function(resolve,reject){
-		let fileStream = fs.createWriteStream("./public/images/"+i);
+		let fileStream = fs.createWriteStream(__dirname+"/../public/images/"+i);
 		let objPost = new Object();
 
 		objPost.has_image = feed.posts[i].has_image;
