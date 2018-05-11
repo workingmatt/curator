@@ -25,7 +25,7 @@ module.exports = {
 		var that = this;
 		return new Promise(function(resolve,reject){
 			console.log("getPosts ***********");
-			https.get('https://api.curator.io/v1/feeds/57C5020C-83C8-4F7D-B227-B8EEEC4A/posts/?api_key=a750692d-1236-47c4-b108-69607e0e06af', (resp)=>{
+			https.get('https://api.curator.io/v1/feeds/e67958d9-a4d9-474a-8390-08fd69b92cd7/posts/?api_key=a750692d-1236-47c4-b108-69607e0e06af', (resp)=>{
 				let data = '';
 				resp.on('data',(chunk)=>{
 					data += chunk;
