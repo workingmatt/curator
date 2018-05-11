@@ -97,9 +97,9 @@ function getImageLoop(feed, i) {
 		objPost.name = feed.posts[i].user_screen_name;
 		objPost.text = feed.posts[i].text;
 		objPost.network_name = feed.posts[i].network_name;
-		var date = new Date(feed.posts[i].source_created_at)
-		objPost.date = date.toLocaleDateString("en-GB-oed");
-		
+		var date = new Date(feed.posts[i].source_created_at);
+		objPost.date = date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear();//date.toLocaleDateString("en-GB");
+		console.log(objPost.date);
 		postArray.push(objPost);
 
 		request(feed.posts[i].image, function(err, response, body){ //feed.posts[i].image is a URL
