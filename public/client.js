@@ -1,6 +1,7 @@
 //client.js
-var maxImageWidth = 420;
-var maxImageHeight = 450;
+var maxImageWidth = $(window).width()-200;
+var maxImageHeight = $(window).height()-200;
+console.log("maxImageheight"+maxImageHeight);
 var j = 0;
 
 var iconImageArray = new Array();
@@ -27,68 +28,72 @@ $(function () {//Runs immediately
 		success: function (data){
 			//Add posts to index.html as #grid-items
 			for (j=0;j<data.length;j++){
+
 				if(data[j].content_type == undefined){
 					data[j].content_type = "none";
 				}
 
 				var imageSizer;
-				if(data[j].image_width>=data[j].image_height){
-					imageSizer = '" width="'+maxImageWidth;
-				}	
+				var imageAspectRatio;
+				imageAspectRatio = data[j].image_width/data[j].image_height;
 
-				if(data[j].image_width<data[j].image_height){
-					imageSizer = '" height="'+maxImageHeight;
+				//Height is fixed at 800px. Width variable with max 1500px
+				imageSizer = '" height="'+maxImageHeight;
+
+				if(maxImageHeight*imageAspectRatio > maxImageWidth){
+					imageSizer = '" width="'+maxImageWidth
 				}
 
-
-				if(!data[j].content_type.includes('html')){
+				if(!data[j].content_type.includes('html')){ //If post does not contain html add post as a #thegrid child <div>
 					if (data[j].network_name=="Facebook"){
-						$('<div id="grid-item" data-i="'+j+'" style="display: none;">')		
+						$('<div class="slide-item" data-i="'+j+'">')		
 							.append('<img src="./images/'+data[j].image+imageSizer+'" alt="'+data[j].image+'"></>')
 							.append('<p><img src="'+iconImageArray[0].src+'" alt="FB" width="'+iconImageArray[0].width+'">&nbsp&nbsp'+data[j].name+' : '+data[j].date+'</p>')
-							.appendTo('#thegrid');
+							.appendTo('.slide-item-wrapper');
 					} else if (data[j].network_name=="Instagram") {
-						$('<div id="grid-item" data-i="'+j+'" style="display: none;">')
+						$('<div class="slide-item" data-i="'+j+'"">')
 							.append('<img src="./images/'+data[j].image+imageSizer+'" alt="'+data[j].image+'"></>')
-							.append('<p><img src="'+iconImageArray[1].src+'" alt="FB" width="'+iconImageArray[1].width+'">&nbsp&nbsp'+data[j].name+" : "+data[j].date+"</p>")
-							.appendTo('#thegrid');
+							.append('<p><img src="'+iconImageArray[1].src+'" alt="IG" width="'+iconImageArray[1].width+'">&nbsp&nbsp'+data[j].name+" : "+data[j].date+"</p>")
+							.appendTo('.slide-item-wrapper');
 					} else if (data[j].network_name=="Twitter") {
-						$('<div id="grid-item" data-i="'+j+'" style="display: none;">')
+						$('<div class="slide-item" data-i="'+j+'"">')
 							.append('<img src="./images/'+data[j].image+imageSizer+'" alt="'+data[j].image+'"></>')
-							.append('<p><img src="'+iconImageArray[2].src+'" alt="FB" width="'+iconImageArray[2].width+'">&nbsp&nbsp'+data[j].name+" : "+data[j].date+"</p>")
-							.appendTo('#thegrid');
+							.append('<p><img src="'+iconImageArray[2].src+'" alt="TW" width="'+iconImageArray[2].width+'">&nbsp&nbsp'+data[j].name+" : "+data[j].date+"</p>")
+							.appendTo('.slide-item-wrapper');
 					}
 				}
 				
 			}
-			//Configure and layout Masonry grid
-			$('#thegrid').imagesLoaded(function() {
+			//Configure and layout the grid
+			$('.slide-item-wrapper').imagesLoaded(function() {
 				console.log("Loaded "+j+" images. Beginning animation.");
-				var index = 1;
+				var index = 0;
 				var maxIndex = j-1;
 
-				$("#thegrid").children().each(function(){
+				$(".slide-item-wrapper").children().each(function(){
 
-					if ($(this).attr('data-i')<index){
-						$(this).hide(1000);	
+					if ($(this).attr('data-i')==index-1){
+						$(this).toggleClass("show");
 					}
-					if ($(this).attr('data-i')>=index && $(this).attr('data-i')<index+8){
-						$(this).show();
+					if ($(this).attr('data-i')==index){
+						$(this).toggleClass("show");
 					}
 				});
 				index++;
 
+				//Interval between animations of images
+				//hide and show transitions
 				setInterval(function(){
-					$("#thegrid").children().each(function(){
-						if ($(this).attr('data-i')<index){
-							$(this).hide(1000);	
+					$(".slide-item-wrapper").children().each(function(){
+						if ($(this).attr('data-i')==index-1){
+							$(this).toggleClass("show");	
 						}
-						if ($(this).attr('data-i')>=index && $(this).attr('data-i')<index+8){
-							$(this).show(1200);
+						if ($(this).attr('data-i')==index){
+							$(this).toggleClass("show");
 						}
 					});
 					if (index>maxIndex){
-						index = 1;
+						index = 0;
 					} else {
 						index++;	
 					}

@@ -6,36 +6,60 @@
 		margin: 0 0 0 0;
 	}
 
-	#thegrid {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		grid-template-rows: repeat(2, 540px);
+	.slide-item-wrapper {
+		width: auto;
+		height: 100%;
+		overflow: hidden;
 	}
 
-	#grid-item {
+	.slide-item-wrapper > * {
+		left:50%;
+		transform: translate(-50%);
+		-webkit-transition: .5 ease-in-out;
+		-moz-transition: .5 ease-in-out;
+		transition: .5s ease-in-out;
+	}
+
+	.slide-item {
 		background: white;
 		float: left;
 		margin: 10px 10px 10px 10px;
-		text-align: center;
-		text-decoration: none;
+
 		-webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, .3);
 		-moz-box-shadow: 0 4px 6px rgba(0,0,0,.3);
 		box-shadow: 0 4px 6px rgba(0,0,0,.3);
-		-webkit-transition: all .15s linear;
-		-moz-transition: all .15s linear;
-		transition: all .15s linear;
+		
 		z-index:0;
-        position:relative;
+        position:absolute;
+		text-align: center;
+		text-decoration: none;
+
+		top: 100%;
+		visibility: hidden;
+		opacity: 0;
+
+		-webkit-transition: visibility 0s, opacity 2s ease-in-out;
+		-moz-transition: visibility 0s, opacity 2s ease-in-out;
+		-o-transition: visibility 0s, opacity 2s ease-in-out;
+		transition: top 2s, visibility 2s, opacity 2s ease-in-out;
 	}
 
-	#grid-item > img {
+	.slide-item.show {
+		top:50%;
+		transform: translate(-50%,-50%);
+		position: relative;
+		visibility: visible;
+		opacity: 1;
+	}
+
+	.slide-item > img {
 		margin: 15px;
 	}
 		
-	#grid-item > p {
+	.slide-item > p {
 		color: #333;
-		font-size: 24px;
-		position: absolute;
+		font-size: 48px;
+		position: relative;
 		bottom: 0;
 		width: auto;
 	}
@@ -52,7 +76,8 @@
 </head>
 
 <body>
-	<div id="thegrid"></div>
+	<div class="slide-item-wrapper">
+	</div>
 
 <script src="./jquery-3.2.1.min.js"></script>
 <script src="./imagesloaded.pkgd.min.js"></script>
