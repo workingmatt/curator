@@ -34,6 +34,8 @@ module.exports = {
 				resp.on('end',()=>{
 					console.log("got data from curator.io");
 					feed = JSON.parse(data);
+					//console.log("Got data");
+					//console.log(feed);
 					that.getImages()
 						.then(function(v){
 							resolve(res.send(v));
@@ -99,7 +101,7 @@ function getImageLoop(feed, i) {
 		objPost.network_name = feed.posts[i].network_name;
 		var date = new Date(feed.posts[i].source_created_at);
 		objPost.date = date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear();//date.toLocaleDateString("en-GB");
-		console.log(objPost.date);
+		//console.log(objPost.date);
 		postArray.push(objPost);
 
 		request(feed.posts[i].image, function(err, response, body){ //feed.posts[i].image is a URL
@@ -108,7 +110,10 @@ function getImageLoop(feed, i) {
 				console.log("Err in getImages: ");
 				console.log(err);
 			}
-			if(response.headers['content-type'].includes('text/html')){
+			console.log("before error");
+			console.log(response.headers);
+			console.log("********");
+			if(response.headers['content-type'] && response.headers['content-type'].includes('text/html')){
 				console.log("html detected");
 			}
 			objPost.content_type = response.headers['content-type'];
