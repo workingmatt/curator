@@ -24,7 +24,7 @@ iconImageArray[2].title = "TW";
 $(function () {//Runs immediately
 	$.ajax({
 		type: 'POST',
-		url: 'http://localhost:3000/feed',//For production use 'http://systemsengineering.co.uk/feed',
+		url: 'http://localhost:3000/feed',//Dev:http://localhost:3000/feed; production use 'http://systemsengineering.co.uk/feed',
 		success: function (data){
 			//Add posts to index.html as #grid-items
 			for (j=0;j<data.length;j++){
